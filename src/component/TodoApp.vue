@@ -21,12 +21,20 @@ export default {
    name: "TodoApp",
    setup() {
       const newTodo = ref("");
+      const todos = ref([]);
+
       function addNewTodo(e) {
          e.preventDefault();
          console.log(newTodo.value);
+         todos.value.push({
+            done: false,
+            content: newTodo.value
+         });
       }
 
+      // Ao usar setup() temos que 'expor os dados retornados por ele, usando o return'
       return {
+         todos,
          newTodo,
          addNewTodo,
       }
