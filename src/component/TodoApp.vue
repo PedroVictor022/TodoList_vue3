@@ -11,6 +11,11 @@
             <button @click="removeTodo(index)">Delete Todo</button>
          </ul>
 
+         <button
+            type="button"
+            @click="markAllDone"
+         >Complete all todos</button>
+
 
       </form>
 
@@ -51,6 +56,10 @@ export default {
       function removeTodo(index) {
          todos.value.splice(index, 1);
       }
+      
+      function markAllDone() {
+         todos.value.forEach((todo) => todo.done = true)
+      }
 
       // Ao usar setup() temos que 'expor os dados retornados por ele, usando o return'
       return {
@@ -58,7 +67,8 @@ export default {
          newTodo,
          addNewTodo,
          toggleDone,
-         removeTodo
+         removeTodo,
+         markAllDone
       }
    }
 }
