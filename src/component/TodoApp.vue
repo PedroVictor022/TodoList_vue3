@@ -6,12 +6,12 @@
          <input type="text" name="newTodo" v-model="newTodo">
          <button>Add New Todo</button>
 
-         <ul class="todos" v-for="todo in todos" :key="todo.id">
-            <li 
-               @click="toggleDone(todo)"
-               :class="{ done: todo.done }"
-            >{{ todo.content }}</li>
+         <ul class="todos" v-for="(todo, index) in todos" :key="todo.id">
+            <li @click="toggleDone(todo)" :class="{ done: todo.done }">{{ todo.content }}</li>
+            <button @click="removeTodo(index)">Delete Todo</button>
          </ul>
+
+
       </form>
 
    </div>
@@ -48,12 +48,17 @@ export default {
          console.log(todo.done ? "Complete" : "No Complete")
       }
 
+      function removeTodo(index) {
+         todos.value.splice(index, 1);
+      }
+
       // Ao usar setup() temos que 'expor os dados retornados por ele, usando o return'
       return {
          todos,
          newTodo,
          addNewTodo,
          toggleDone,
+         removeTodo
       }
    }
 }
@@ -63,23 +68,33 @@ export default {
 body {
    background: #222;
    color: #fefefe;
-  font-family: sans-serif;
-  padding-top: 1em;
-  padding-bottom: 1em;
-  width: 60%;
-  margin: 0 auto;
+   font-family: sans-serif;
+   padding-top: 1em;
+   padding-bottom: 1em;
+   width: 60%;
+   margin: 0 auto;
 }
-input, textarea, button, p, div, section, article, select {
-  display: 'block';
-  width: 100%;
-  font-family: sans-serif;
-  font-size: 1em;
-  margin: 0.5em;
+
+input,
+textarea,
+button,
+p,
+div,
+section,
+article,
+select {
+   display: 'block';
+   width: 100%;
+   font-family: sans-serif;
+   font-size: 1em;
+   margin: 0.5em;
 }
+
 .todo {
-  cursor: pointer;
+   cursor: pointer;
 }
+
 .done {
-  text-decoration: line-through;
+   text-decoration: line-through;
 }
 </style>
